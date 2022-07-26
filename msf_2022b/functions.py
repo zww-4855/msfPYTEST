@@ -42,15 +42,21 @@ def open_pdb(f_loc):
     c = []
     sym = []
 <<<<<<< HEAD
+<<<<<<< HEAD
     for l in data:
         if "ATOM" in l[0:6] or "HETATM" in l[0:6]:
             sym.append(l[76:79].strip())
             c2 = [float(x) for x in l[30:55].split()]
 =======
+=======
+>>>>>>> functions
     for line in data:
         if "ATOM" in line[0:6] or "HETATM" in line[0:6]:
             sym.append(line[76:79].strip())
             c2 = [float(x) for x in line[30:55].split()]
+<<<<<<< HEAD
+>>>>>>> functions
+=======
 >>>>>>> functions
             c.append(c2)
     coords = np.array(c)
