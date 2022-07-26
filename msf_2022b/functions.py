@@ -1,13 +1,34 @@
 """Provide the primary functions."""
 
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 
-def calculate_distance(rA, rB):
+def calculate_distance(rA: np.ndarray, rB: np.ndarray) -> float:
+    """
+    Calculate the distance between two points. 
+
+    Parameters
+    __________
+    rA, rB: np.ndarray
+        The coordinates of each point. 
+
+    Returns
+    _______
+    dist: np.floating
+        The distance between two points. 
+
+    Examples
+    ________
+
+    >>> r1 = np.array([0,0,0])
+    >>> r2 = np.array([0,1.0,0])
+    >>> calculate_distance(r1,r2)
+    1.0
+        
+    """
     # This function calculates the distance between two points given as numpy arrays.
     d = rA - rB
     dist = np.linalg.norm(d)
@@ -20,10 +41,17 @@ def open_pdb(f_loc):
         data = f.readlines()
     c = []
     sym = []
+<<<<<<< HEAD
     for l in data:
         if "ATOM" in l[0:6] or "HETATM" in l[0:6]:
             sym.append(l[76:79].strip())
             c2 = [float(x) for x in l[30:55].split()]
+=======
+    for line in data:
+        if "ATOM" in line[0:6] or "HETATM" in line[0:6]:
+            sym.append(line[76:79].strip())
+            c2 = [float(x) for x in line[30:55].split()]
+>>>>>>> functions
             c.append(c2)
     coords = np.array(c)
     return sym, coords
@@ -154,6 +182,9 @@ def bond_histogram(bond_list, save_location=None, dpi=300, graph_min=0, graph_ma
 def build_bond_list(coordinates, max_bond=1.5, min_bond=0):
 
     # Find the bonds in a molecule (set of coordinates) based on distance criteria.
+    if min_bond < 0:
+        raise ValueError("Minimum bnd length must be greater to or equal to 0")
+    
     bonds = {}
     num_atoms = len(coordinates)
 
